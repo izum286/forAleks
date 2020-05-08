@@ -1,10 +1,9 @@
 package com.exampleapp.my_example_app.service;
 
-import com.exampleapp.my_example_app.dto.PhotoRequestDTO;
+import com.exampleapp.my_example_app.dto.FileData;
 import com.exampleapp.my_example_app.dto.PhotoResponseDTO;
 import com.exampleapp.my_example_app.entity.PhotoEntity;
 import com.exampleapp.my_example_app.repository.interfaces.PhotoRepository;
-import com.exampleapp.my_example_app.repository.interfaces.PhotoRepositoryJPA;
 import com.exampleapp.my_example_app.service.interfaces.Mapper;
 import com.exampleapp.my_example_app.service.interfaces.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class PhotoServiceImpl implements PhotoService {
     Mapper mapper;
 
     @Override
-    public List<PhotoResponseDTO> init(List<PhotoRequestDTO> list) {
+    public List<PhotoResponseDTO> init(List<FileData> list) {
         List<PhotoEntity> res = list.stream()
                 .map((dto)-> {
                     PhotoEntity newEntity = mapper.map(dto);

@@ -1,6 +1,6 @@
 package com.exampleapp.my_example_app.service;
 
-import com.exampleapp.my_example_app.dto.PhotoRequestDTO;
+import com.exampleapp.my_example_app.dto.FileData;
 import com.exampleapp.my_example_app.dto.PhotoResponseDTO;
 import com.exampleapp.my_example_app.entity.PhotoEntity;
 import com.exampleapp.my_example_app.service.interfaces.Mapper;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MapperImpl implements Mapper {
     @Override
-    public PhotoEntity map(PhotoRequestDTO from) {
+    public PhotoEntity map(FileData from) {
         return PhotoEntity.builder()
                 .id(from.getId())
                 .albumId(from.getAlbumId())

@@ -1,6 +1,6 @@
 package com.exampleapp.my_example_app.service.interfaces;
 
-import com.exampleapp.my_example_app.dto.PhotoRequestDTO;
+import com.exampleapp.my_example_app.dto.FileData;
 import com.exampleapp.my_example_app.dto.PhotoResponseDTO;
 import org.springframework.core.io.ByteArrayResource;
 
@@ -19,7 +19,7 @@ public interface PhotoService {
      * @author AleksGor
      * @param list of new PhotoRequestDTOs
      */
-    List<PhotoResponseDTO> init(List<PhotoRequestDTO> list);
+    List<PhotoResponseDTO> init(List<FileData> list);
 
     /**
      * Method for getting all PhotoEntities from our data base.

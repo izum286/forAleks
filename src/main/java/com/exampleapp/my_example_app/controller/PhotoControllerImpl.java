@@ -1,7 +1,7 @@
 package com.exampleapp.my_example_app.controller;
 
 import com.exampleapp.my_example_app.controller.interfaces.PhotoController;
-import com.exampleapp.my_example_app.dto.PhotoRequestDTO;
+import com.exampleapp.my_example_app.dto.FileData;
 import com.exampleapp.my_example_app.dto.PhotoResponseDTO;
 import com.exampleapp.my_example_app.service.interfaces.PhotoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.CacheControl;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,19 +38,14 @@ public class PhotoControllerImpl implements PhotoController {
     @Override
     @PostMapping("init")
     public List<PhotoResponseDTO> init() {
-
         try {
-            List<PhotoRequestDTO> list = Arrays.asList(objectMapper.readValue(
-                    new URL(url), PhotoRequestDTO[].class));
+            List<FileData> list = Arrays.asList(objectMapper.readValue(
+                    new URL(url), FileData[].class));
             return photoService.init(list);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -65,6 +60,7 @@ public class PhotoControllerImpl implements PhotoController {
         return photoService.getAllPhotosFromAlbum(album);
     }
 
+    //TODO check
     @Override
     @GetMapping("download")
     public ResponseEntity<ByteArrayResource> getPhoto(@RequestParam("path") String path) throws FileNotFoundException {
@@ -73,6 +69,7 @@ public class PhotoControllerImpl implements PhotoController {
                 .ok()
                 .header(CacheControl.noCache().getHeaderValue())
                 .contentType(MediaType.IMAGE_JPEG)
-                .contentLength(imageByteArr.contentLength()).body(imageByteArr);
+                .contentLength(imageByteArr.contentLength())
+                .body(imageByteArr);
     }
 }

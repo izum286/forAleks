@@ -1,10 +1,9 @@
 package com.exampleapp.my_example_app.repository;
 
-import com.exampleapp.my_example_app.dto.PhotoRequestDTO;
+import com.exampleapp.my_example_app.dto.FileData;
 import com.exampleapp.my_example_app.dto.PhotoResponseDTO;
 import com.exampleapp.my_example_app.entity.PhotoEntity;
 import com.exampleapp.my_example_app.repository.interfaces.PhotoRepository;
-import com.exampleapp.my_example_app.repository.interfaces.PhotoRepositoryJPA;
 import com.exampleapp.my_example_app.service.interfaces.Mapper;
 import com.exampleapp.my_example_app.service.interfaces.PhotoService;
 import org.junit.After;
@@ -37,9 +36,9 @@ class PhotoRepositoryImplTest {
     @Autowired
     Mapper mapper;
 
-    private PhotoRequestDTO photoRequestDTO;
-    private PhotoRequestDTO photoRequestDTO2;
-    private List<PhotoRequestDTO> checkListDto;
+    private FileData fileData;
+    private FileData fileData2;
+    private List<FileData> checkListDto;
     private List<PhotoEntity> listFromRepository;
 
     @Test
@@ -94,28 +93,28 @@ class PhotoRepositoryImplTest {
 
     @Before
     void initialization(){
-        photoRequestDTO = new PhotoRequestDTO(1,
+        fileData = new FileData(1,
                 1,
                 "SomeTitle",
                 "https://s3.amazonaws.com/shielddevtest/photo1.jfif",
                 "https://s3.amazonaws.com/shielddevtest/photo1.jfif");
-        photoRequestDTO2 = new PhotoRequestDTO(2,
+        fileData2 = new FileData(2,
                 2,
                 "SomeTitle",
                 "https://s3.amazonaws.com/shielddevtest/photo2.jpg",
                 "https://s3.amazonaws.com/shielddevtest/photo2.jpg");
         checkListDto = new ArrayList<>();
-        checkListDto.add(photoRequestDTO);
-        checkListDto.add(photoRequestDTO2);
+        checkListDto.add(fileData);
+        checkListDto.add(fileData2);
         listFromRepository = new ArrayList<>();
-        listFromRepository.add(mapper.map(photoRequestDTO));
-        listFromRepository.add(mapper.map(photoRequestDTO2));
+        listFromRepository.add(mapper.map(fileData));
+        listFromRepository.add(mapper.map(fileData2));
     }
 
     @After
     void afterTest(){
-        photoRequestDTO = null;
-        photoRequestDTO2 = null;
+        fileData = null;
+        fileData2 = null;
         checkListDto = null;
     }
 }
